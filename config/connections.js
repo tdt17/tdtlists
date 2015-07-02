@@ -42,10 +42,10 @@ module.exports.connections = {
   ***************************************************************************/
   mongoDevServer: {
     adapter: 'sails-mongo',
-    host: 'localhost',
-    port: 1234
-    //user: '',
-    //password: '',
-    //database: ''
+    host: process.env.mongo_host,
+    port: process.env.mongo_port,
+    user: process.env.mongo_user,
+    password: process.env.mongo_pw,
+    database: process.env.mongo_db
   }
 };
