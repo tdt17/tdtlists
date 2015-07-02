@@ -12,6 +12,6 @@
 module.exports.models = {
 
   connection: 'mongoDb',
-  migrate: 'alter'
+  migrate: 'safe'
 
 };
