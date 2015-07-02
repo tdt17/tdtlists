@@ -2,7 +2,7 @@
 
 [![Build Status](https://snap-ci.com/tdt17/tdtlists/branch/master/build_image)](https://snap-ci.com/tdt17/tdtlists/branch/master)
 
-The app is developed for sharing and collaborating of lists.
+The app is developed to share and collaborate on all sorts of lists.
 
 ## Development
 
