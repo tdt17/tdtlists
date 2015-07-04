@@ -12,6 +12,7 @@ Build on sails and angularJS
 
 Requirements:
 - npm install
+- bower install
 - [Sails](http://sailsjs.org/get-started)
 
 Start (localhost:1337):
