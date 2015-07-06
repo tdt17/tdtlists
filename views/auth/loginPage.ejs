@@ -6,6 +6,9 @@
           <h1 class="panel-title">Login</h1>
         </div>
         <div class="panel-body">
+          <% if (typeof message != "undefined") { %>
+            <div class="alert alert-danger"> <%= message %> </div>
+          <% } %>
           <form class="form-horizontal" role="form" action="/login" method="post">
             <div class="form-group">
               <label class="col-sm-2 control-label" for="loginUsername">Username</label>

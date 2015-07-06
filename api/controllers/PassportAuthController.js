@@ -7,29 +7,28 @@ var passport = require('passport');
 
 var PassportAuthController = {
 
-  login: function (req,res) {
-    res.view({ message: req.flash('error') });
+  loginPage: function (req,res) {
+    return res.view('auth/login', {});
   },
 
-  loginProcess: function(req, res, next) {
+  login: function(req, res, next) {
     passport.authenticate('local', function(err, user, info) {
       if (err) return next(err);
       if (!user) {
-        return res.view('passportauth/login', {
-          username: req.body.username,
+        return res.json(403,{
           message: info.message
         });
       }
       req.logIn(user, function(err) {
         if (err) return next(err);
-        return res.redirect('/protected');
+        return res.json(user);
       });
     })(req, res, next);
   },
 
   logout: function(req,res) {
     req.logout();
-    res.redirect('/');
+    res.json({ok: true});
   }
 
 };
