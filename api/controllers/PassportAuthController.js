@@ -8,7 +8,7 @@ var passport = require('passport');
 var PassportAuthController = {
 
   loginPage: function (req,res) {
-    return res.view('auth/login', {});
+    return res.view('auth/loginPage', {});
   },
 
   login: function(req, res, next) {
