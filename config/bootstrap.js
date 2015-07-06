@@ -58,7 +58,7 @@ module.exports.bootstrap = function (cb) {
     });
 
     passport.deserializeUser(function(id, done) {
-      User.findOne(id).done(function (err, user) {
+      User.findOne(id).exec(function (err, user) {
         done(err, user);
       });
     });
@@ -74,7 +74,7 @@ module.exports.bootstrap = function (cb) {
         // username, or the password is not correct, set the user to `false` to
         // indicate failure and set a flash message. Otherwise, return the
         // authenticated `user`.
-        User.findOneByUsername(username).done(function(err, user) {
+        User.findOne({username: username}).exec(function(err, user) {
           if (err) { return done(err); }
           if (!user) { return done(null, false, { message: 'Unknown user ' + username }); }
           user.validPassword(password, function(err, res) {
