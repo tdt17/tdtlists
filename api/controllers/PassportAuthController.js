@@ -21,6 +21,7 @@ var PassportAuthController = {
       }
       req.logIn(user, function(err) {
         if (err) return next(err);
+        sails.session.user = user.toJSON();
         return res.json(user);
       });
     })(req, res, next);
