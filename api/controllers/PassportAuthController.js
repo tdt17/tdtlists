@@ -5,33 +5,33 @@
 
 var passport = require('passport');
 
-var PassportAuthController = {
+module.exports = {
 
-  loginPage: function (req,res) {
+  loginPage: function (req, res) {
     return res.view('auth/loginPage', {});
   },
 
-  login: function(req, res, next) {
-    passport.authenticate('local', function(err, user, info) {
+  login: function (req, res, next) {
+    passport.authenticate('local', function (err, user, info) {
       if (err) return next(err);
       if (!user) {
-        return res.json(403,{
+        return res.json(403, {
           message: info.message
         });
       }
-      req.logIn(user, function(err) {
+      req.logIn(user, function (err) {
         if (err) return next(err);
-        sails.session.user = user.toJSON();
+        req.session.user = user.toJSON();
         return res.json(user);
       });
     })(req, res, next);
   },
 
-  logout: function(req,res) {
+  logout: function (req, res) {
     req.logout();
     res.json({ok: true});
   }
 
 };
 
-module.exports = PassportAuthController;
+})();
