@@ -17,7 +17,11 @@ Requirements:
 
 Start (localhost:1337):
 
-  sails lift
+    sails lift
+
+Run tests (requires [mocha](http://mochajs.org/)):
+
+    npm test
 
 ## Just go and try it:
 https://tdtlists.herokuapp.com/
