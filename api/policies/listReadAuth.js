@@ -7,36 +7,38 @@
  *
  */
 module.exports = function(req, res, next) {
-  // User is not allowed
-  function forbidden() {
-    return res.json(403,'You are not permitted to access this list.');
-  }
-
-  var targetListId = req.param('id');
+  var targetListId = req.params.id;
   var password = req.param('password');
   var userId = -1;
 
-  if (req.session.authenticated) {
+  if (req.isAuthenticated()) {
     userId = req.session.user.id;
+  }
+
+  if(targetListId == undefined) {
+    return res.forbidden({error: 'You are not permitted to access this list (missing list id).'});
   }
 
   List.findOne(targetListId).populate('owners', userId).exec(function(err, list){
     if (err) {
       return next(err);
     }
-    //As Owner has access
+    if(list == undefined){
+      return res.forbidden({error: 'You are not permitted to access this list.'});
+    }
+    //Owner has access
     if(list.owners.length === 1){
-      next();
+      return next();
     }
     //No password defined (readable for all) or user entered password
     if('password' in list){
       if(password == list.password){
-        next();
+        return next();
       }
     }else{
-      next();
+      return next();
     }
-  });
 
-  return forbidden();
+    return res.forbidden({error: 'You are not permitted to access this list.'});
+  });
 };

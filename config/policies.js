@@ -28,8 +28,20 @@ module.exports.policies = {
 
   '*': true,
 
+
+
   ListController: {
-    '*': 'passportAuth'
+    '*': 'listWriteAuth',
+    'findone': 'listReadAuth',
+    'create': 'passportAuth',
+    'destroy': false
+  },
+
+  UserController: {
+    '*': false,
+    'create': true,
+    'update': 'userEditAuth',
+    'destroy': 'userEditAuth'
   },
 
   PassportAuthController: {

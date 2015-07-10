@@ -25,6 +25,7 @@ function removeUnchangeableAttributes(values) {
 }
 
 module.exports = {
+  schema: true,
   attributes: {
     username: {
       type: 'string',
