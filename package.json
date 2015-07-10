@@ -25,6 +25,9 @@
     "sails-hook-autoreload": "^0.11.5",
     "sails-mongo": "^0.11.2"
   },
+  "devDependencies": {
+    "supertest": "^1.0.1"
+  },
   "name": "tdtlists",
   "private": true,
   "version": "0.0.1",
@@ -34,8 +37,9 @@
     "organisation"
   ],
   "scripts": {
+    "start": "node app.js",
     "debug": "node debug app.js",
-    "start": "node app.js"
+    "test": "mocha test/bootstrap.test.js test/unit/**/*.test.js"
   },
   "main": "app.js",
   "repository": {
