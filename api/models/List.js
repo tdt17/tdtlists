@@ -16,6 +16,7 @@ function findIndexforEntryId(entryId, array) {
 
 function removeUnchangeableAttributes(values) {
   delete values.id;
+  delete values.owners;
 }
 
 module.exports = {
@@ -49,8 +50,9 @@ module.exports = {
     },
 
     addEntry: function (data) {
-      data.id = ++this.entryCounter;
+      data.id = this.entryCounter++;
       this.entry.push(data);
+      return data;
     },
 
     updateEntry: function (data) {
@@ -58,7 +60,10 @@ module.exports = {
         if (data.id < 0 || data.id > this.entryCounter) {
           throw "Invalid data id (" + data.id + ")";
         }
-        this.entry[findIndexforEntryId(data.id)] = data;
+        var index = findIndexforEntryId(data.id, this.entry);
+        var oldData = this.entry[index];
+        this.entry[index] = data;
+        return oldData;
       } catch (e) {
         sails.log.warn("updateEntry failed: " + e);
         throw "Could not update data";
@@ -70,7 +75,7 @@ module.exports = {
         if (data.id < 0 || data.id > this.entryCounter) {
           throw "Invalid data id (" + data.id + ")";
         }
-        return this.entry.splice(findIndexforEntryId(data.id), 1);
+        return this.entry.splice(findIndexforEntryId(data.id, this.entry), 1);
       } catch (e) {
         sails.log.warn("updateEntry failed: " + e);
         throw "Could not update data";
