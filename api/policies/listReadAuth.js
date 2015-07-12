@@ -7,7 +7,7 @@
  *
  */
 module.exports = function(req, res, next) {
-  var targetListId = req.params.id;
+  var targetListId = req.param('id',undefined);
   var password = req.param('password');
   var userId = -1;
 

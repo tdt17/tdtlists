@@ -13,7 +13,12 @@ module.exports = function(req, res, next) {
     return res.forbidden({error: 'You are not permitted to access this list (not signed in).'});
   }
 
-  var targetListId = req.params.id;
+  //If a request passes a second time (e.g. add/remove), because of rearranged params just pass
+  if (req.options.canPass) {
+    return next();
+  }
+
+  var targetListId = req.param('id',undefined);
   var userId = req.session.user.id;
 
   if(targetListId == undefined) {
@@ -23,6 +28,9 @@ module.exports = function(req, res, next) {
   List.findOne(targetListId).populate('owners', {id: userId}).exec(function(err, list){
     if (err) {
       return next(err);
+    }
+    if(list == undefined){
+      return res.forbidden({error: 'You are not permitted to access this list.'});
     }
     //User has to be one of the owners
     if(list.owners.length === 1){

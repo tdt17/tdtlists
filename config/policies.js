@@ -28,8 +28,6 @@ module.exports.policies = {
 
   '*': true,
 
-
-
   ListController: {
     '*': 'listWriteAuth',
     'findone': 'listReadAuth',

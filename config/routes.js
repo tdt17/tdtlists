@@ -33,8 +33,21 @@ module.exports.routes = {
   //
   // Passport Auth Routes
   //
-  '/loginPage':  'PassportAuthController.loginPage',
-  '/login': 'PassportAuthController.login',
-  '/logout':     'PassportAuthController.logout'
+  '/loginPage':   'PassportAuthController.loginPage',
+  '/login':       'PassportAuthController.login',
+  '/logout':      'PassportAuthController.logout',
+
+  //
+  // List Routes
+  //
+  'GET /list/:id' :                   'ListController.findOne',
+  'PUT /list/:id' :                   'ListController.update',
+  '/list/:id/add' :                   'ListController.addEntry',
+  '/list/:id/update/:entryId' :       'ListController.updateEntry',
+  '/list/:id/remove/:entryId' :       'ListController.removeEntry',
+  '/list/:id/owners/add/:ownerId':    'ListController.authorizeAdd',
+  '/list/:parentid/owners/add/:id':   'ListController.add',
+  '/list/:id/owners/remove/:ownerId': 'ListController.authorizeRemove',
+  '/list/:parentid/owners/remove/:id':'ListController.remove'
 
 };
